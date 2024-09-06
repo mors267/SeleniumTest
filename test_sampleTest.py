@@ -1,27 +1,49 @@
-import time
 import pytest
+from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 
 
-class TestLoginPage:
-    def test_valid_login(self, driver):
-        driver.get("https://www.saucedemo.com/")
-        # time.sleep(2)
+@pytest.fixture(scope="module")
+def browser():
+    options = Options()
+    options.add_argument("--disable-notifications")
+    driver = webdriver.Chrome(options=options)
+    yield driver
+    driver.quit()
 
-        # Type username
-        username_input = driver.find_element(By.ID, "user-name")
-        username_input.send_keys("standard_user")
+def test_HomepageLOBTiles(browser):
+    # Load the URL
+    browser.get('https://business.comcast.com/?disablescripts=true')
+    browser.maximize_window()
+    browser.refresh()
 
-        # Type password
-        password_input = driver.find_element(By.ID, "password")
-        password_input.send_keys("secret_sauce")
+    # Define elements and their expected href values
+    elements = {
+        "//a[@href='/learn/mobile']": 'https://business.comcast.com/learn/mobile',
+        "//a[@href='/learn/internet']": 'https://business.comcast.com/learn/internet',
+        "//a[@href='/learn/phone']": 'https://business.comcast.com/learn/phone',
+        "//a[@href='/learn/internet/security-edge']": 'https://business.comcast.com/learn/internet/security-edge'
+    }
 
-        # Click on the login button
-        login_btn = driver.find_element(By.ID, "login-button")
-        login_btn.click()
+    # Loop through elements, assert href value, and print result
+    for xpath, expected_href in elements.items():
+        element = browser.find_element(By.XPATH, xpath)
+        assert element.get_attribute('href') == expected_href
+        print('\n' + xpath + ' href value matches expected URL')
+        print("CTA URL:", element.get_attribute('href'))
+        
 
-        # URL Validation
-        actual_url = driver.current_url
-        assert actual_url == "https://www.saucedemo.com/inventory.htmls"
 
-        # time.sleep(2)
+def test_HomepageHMDSection(browser):
+    # Load the URL
+    browser.get('https://business.comcast.com/?disablescripts=true')
+    browser.maximize_window()
+    browser.refresh()
+
+    # Find and assert href value for HMD section
+    element = browser.find_element(By.CSS_SELECTOR, '.button.button--lg.button-tertiary.button-tertiary--no-border')
+    assert element.get_attribute('href') == 'https://business.comcast.com/learn/solution-finder'
+    print('HMD link available in section')
+    print("CTA URL:", element.get_attribute('href'))
+
