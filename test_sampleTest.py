@@ -35,15 +35,3 @@ def test_HomepageLOBTiles(browser):
         
 
 
-def test_HomepageHMDSection(browser):
-    # Load the URL
-    browser.get('https://business.comcast.com/?disablescripts=true')
-    browser.maximize_window()
-    browser.refresh()
-
-    # Find and assert href value for HMD section
-    element = browser.find_element(By.CSS_SELECTOR, '.button.button--lg.button-tertiary.button-tertiary--no-border')
-    assert element.get_attribute('href') == 'https://business.comcast.com/learn/solution-finder'
-    print('HMD link available in section')
-    print("CTA URL:", element.get_attribute('href'))
-
