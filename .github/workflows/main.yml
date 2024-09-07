@@ -28,5 +28,5 @@ jobs:
         run: sudo apt-get install xvfb
 
       - name: Running the Python script
-        run: pytest test_sampleTest.py
+        run: pytest test_sampleTest.py --soft-asserts --html=TestReport.html --self-contained-html
         
