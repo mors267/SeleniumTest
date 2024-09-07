@@ -28,12 +28,13 @@ jobs:
         run: sudo apt-get install xvfb
 
       - name: Running the Python script
-        run: pytest test_sampleTest.py --soft-asserts --html=reports/reports.html --self-contained-html
+          mkdir -p reports
+        run: pytest test_sampleTest.py --soft-asserts --html=reports/reports.html
         
       - name: Set output
         if: success() || failure()
         id: results
-        run: echo "artifactPath=tests/reports/" >> $GITHUB_OUTPUT
+        run: echo "artifactPath=reports" >> $GITHUB_OUTPUT
 
       - uses: actions/upload-artifact@v3
         if: success() || failure()
