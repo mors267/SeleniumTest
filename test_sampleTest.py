@@ -45,9 +45,9 @@ def test_HomepageLOBTiles(browser):
 
     # Define elements and their expected href values
     elements = {
-        "//a[@href='/learn/mobile']": 'https://business.comcast.com/learn/mobile123',
-        "//a[@href='/learn/internet']": 'https://business.comcast.com/learn/internet123',
-        "//a[@href='/learn/phone']": 'https://business.comcast.com/learn/phone123',
+        "//a[@href='/learn/mobile']": 'https://business.comcast.com/learn/mobile',
+        "//a[@href='/learn/internet']": 'https://business.comcast.com/learn/internet',
+        "//a[@href='/learn/phone']": 'https://business.comcast.com/learn/phone',
         "//a[@href='/learn/internet/security-edge']": 'https://business.comcast.com/learn/internet/security-edge'
     }
 
