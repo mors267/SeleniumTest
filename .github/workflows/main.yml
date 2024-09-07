@@ -28,6 +28,6 @@ jobs:
         run: sudo apt-get install xvfb
 
       - name: Running the Python script
-        run: python test_sampleTest.py --browser=chrome --html=reports/reports.html
+        run: mkdir -p reports pyest test_sampleTest.py --html=reports.html --self-contained-html
           chmod 777  /home/runner/work/python-se/python-se/tests/reports/
         
