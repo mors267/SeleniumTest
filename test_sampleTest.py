@@ -7,23 +7,22 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 import time
+import chromedriver_autoinstaller
+from pyvirtualdisplay import Display
+display = Display(visible=0, size=(800, 800))  
+display.start()
 
-# import chromedriver_autoinstaller
-# from pyvirtualdisplay import Display
-# display = Display(visible=0, size=(800, 800))  
-# display.start()
-
-# chromedriver_autoinstaller.install()  # Check if the current version of chromedriver exists
+chromedriver_autoinstaller.install()  # Check if the current version of chromedriver exists
 #                                       # and if it doesn't exist, download it automatically,
 #                                       # then add chromedriver to path
 
-# chrome_options = webdriver.ChromeOptions()    
+chrome_options = webdriver.ChromeOptions()    
 # # Add your options as needed    
 # options = [
 #   # Define window size here
-#    "--window-size=1920,1080",
-#     "--ignore-certificate-errors"
- 
+    "--window-size=1920,1200",
+    "--ignore-certificate-errors"
+
 #     #"--headless",
 #     #"--disable-gpu",
 #     #"--window-size=1920,1200",
