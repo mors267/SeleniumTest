@@ -33,17 +33,17 @@ options = [
 ]
 
 
-@pytest.fixture()    
-def quicksetup(): 
-    global driver
-    options = Options()
-    options.add_argument("--disable-notifications")
-    driver = webdriver.Chrome()
-    driver.get('https://business.comcast.com/shop/gateway?disablescripts=true')
-    driver.maximize_window()
-    driver.refresh()
-    yield driver
-    driver.quit() 
+# @pytest.fixture()    
+# def quicksetup(): 
+#     global driver
+#     options = Options()
+#     options.add_argument("--disable-notifications")
+#     driver = webdriver.Chrome()
+#     driver.get('https://business.comcast.com/shop/gateway?disablescripts=true')
+#     driver.maximize_window()
+#     driver.refresh()
+#     yield driver
+#     driver.quit() 
 
 def test_ShopInternetDropDownLinks():
 
