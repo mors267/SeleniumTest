@@ -2,6 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 import chromedriver_autoinstaller
 from pyvirtualdisplay import Display
 display = Display(visible=0, size=(800, 800))  
@@ -28,16 +29,21 @@ options = [
     #'--remote-debugging-port=9222'
 ]
 
-for option in options:
-    chrome_options.add_argument(option)
+@pytest.fixture(scope="module")
+def browser():
+    options = Options()
+    options.add_argument("--disable-notifications")
+    driver = webdriver.Chrome(options=options)
+    yield driver
+    driver.quit()
 
-    
-driver = webdriver.Chrome(options = chrome_options)
+def test_HomepageLOBTiles(browser):
+    # Load the URL
+    browser.get('https://business.comcast.com/?disablescripts=true')
+    browser.maximize_window()
+    browser.refresh()
 
-driver.get('http://www.comcastbusiness.com')
-print(driver.title)
-
-# Define elements and their expected href values
+    # Define elements and their expected href values
     elements = {
         "//a[@href='/learn/mobile']": 'https://business.comcast.com/learn/mobile',
         "//a[@href='/learn/internet']": 'https://business.comcast.com/learn/internet',
@@ -51,3 +57,18 @@ print(driver.title)
         assert element.get_attribute('href') == expected_href
         print('\n' + xpath + ' href value matches expected URL')
         print("CTA URL:", element.get_attribute('href'))
+        
+
+
+def test_HomepageHMDSection(browser):
+    # Load the URL
+    browser.get('https://business.comcast.com/?disablescripts=true')
+    browser.maximize_window()
+    browser.refresh()
+
+    # Find and assert href value for HMD section
+    element = browser.find_element(By.CSS_SELECTOR, '.button.button--lg.button-tertiary.button-tertiary--no-border')
+    assert element.get_attribute('href') == 'https://business.comcast.com/learn/solution-finder'
+    print('HMD link available in section')
+    print("CTA URL:", element.get_attribute('href'))
+
