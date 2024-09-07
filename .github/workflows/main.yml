@@ -28,5 +28,5 @@ jobs:
         run: sudo apt-get install xvfb
 
       - name: Running the Python script
-        run: pyest test_sampleTest.py --html=reports.html --self-contained-html
+        run: pytest test_sampleTest.py --html=TestReport.html --self-contained-html
         
