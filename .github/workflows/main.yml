@@ -30,3 +30,14 @@ jobs:
       - name: Running the Python script
         run: pytest test_sampleTest.py --soft-asserts --html=TestReport.html --self-contained-html
         
+      - name: Set output
+        if: success() || failure()
+        id: results
+        run: echo "artifactPath=tests/reports/" >> $GITHUB_OUTPUT
+
+      - uses: actions/upload-artifact@v3
+        if: success() || failure()
+        with:
+          name: test-report
+          path: ${{ steps.results.outputs.artifactPath }}
+        
