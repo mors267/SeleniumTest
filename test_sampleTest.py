@@ -16,21 +16,9 @@ chromedriver_autoinstaller.install()  # Check if the current version of chromedr
                                       # and if it doesn't exist, download it automatically,
                                       # then add chromedriver to path
 
-chrome_options = webdriver.ChromeOptions()    
-# Add your options as needed    
-options = [
-  # Define window size here
-   "--window-size=1920,1200",
-    "--ignore-certificate-errors",
-    "--headless",
-    "--disable-gpu",
-    "--window-size=1920,1200",
-    "--ignore-certificate-errors",
-    "--disable-extensions",
-    "--no-sandbox",
-    "--disable-dev-shm-usage",
-    '--remote-debugging-port=9222'
-]
+options = Options()
+options.add_argument("--headless");
+options.add_argument("--window-size=1440, 900")
 
 
 @pytest.fixture()    
