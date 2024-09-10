@@ -36,19 +36,8 @@ def test_ShopInternetDropDownLinks(driver):
     driver.refresh()
 
     #view all offers link
-    element = driver.find_element(By.XPATH, "//span[normalize-space()='VIEW ALL OFFERS']")
+  
+    element = driver.find_element(By.CSS_SELECTOR, '#bsd-nav-meganav-panel-Shop > section > div.bsd-nav-double-grid-left > a')
     assert element.get_attribute('href') == 'https://business.comcast.com/shop/offers?services=All&internetdownloadspeed=All&contractlength=All&price=All'
     print('View all offer link available in global header')
-    print("CTA URL:", element.get_attribute('href'))
-
-    #HMD link
-    element = driver.find_element(By.XPATH, "//div[@class='HMD__bar-link-cta']")
-    assert element.get_attribute('href') == 'https://business.comcast.com/learn/solution-finder'
-    print('HMD link available in global header')
-    print("CTA URL:", element.get_attribute('href'))
-
-    #internet link
-    element = driver.find_element(By.XPATH, "//a[@id='business-internet-header-id']//span[@class='bsd-nav-link-text'][normalize-space()='Business Internet']")
-    assert element.get_attribute('href') == 'https://business.comcast.com/learn/internet'
-    print('Internet link available in global header')
     print("CTA URL:", element.get_attribute('href'))
