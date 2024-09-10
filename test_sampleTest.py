@@ -20,10 +20,10 @@ chrome_options = webdriver.ChromeOptions()
 # Add your options as needed    
 options = [
   # Define window size here
+    "--headless",
+    "--disable-gpu",
     "--window-size=1920,1200",
     "--ignore-certificate-errors"
-    "--headless",
-    "--disable-gpu"
 ]
 
 for option in options:
@@ -34,8 +34,6 @@ for option in options:
 def driver():
     options = Options()
     options.add_argument("--disable-notifications")
-    options.add_argument("--headless")
-    options.add_argument("--window-size=1920, 1200")
     driver = webdriver.Chrome(options=options)
     yield driver
     driver.quit() 
