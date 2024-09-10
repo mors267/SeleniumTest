@@ -39,7 +39,7 @@ def test_ShopInternetDropDownLinks(driver):
   
     element = driver.find_element(By.XPATH, '//*[@id="main"]/div[3]/div/div[4]/a')
     assert element.get_attribute('href') == 'https://business.comcast.com/shop/offers'
-    print('Pass')
+    print('ShopNow button available on hero')
     print("CTA URL:", element.get_attribute('href'))
 
 def test_SeeItInAction(driver):
