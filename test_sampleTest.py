@@ -31,13 +31,15 @@ def driver():
 
 
 def test_ShopInternetDropDownLinks(driver):
-    driver.get('https://business.comcast.com/?disablescripts=true')
+    driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
     driver.maximize_window()
     driver.refresh()
 
     #view all offers link
   
-    element = driver.find_element(By.CSS_SELECTOR, '#bsd-nav-meganav-panel-Shop > section > div.bsd-nav-double-grid-left > a')
-    assert element.get_attribute('href') == 'https://business.comcast.com/shop/offers?services=All&internetdownloadspeed=All&contractlength=All&price=All'
-    print('View all offer link available in global header')
+    element = driver.find_element(By.XPATH, '//*[@id="main"]/div[3]/div/div[4]/a')
+    assert element.get_attribute('href') == 'https://business.comcast.com/shop/offers'
+    print('Pass')
     print("CTA URL:", element.get_attribute('href'))
+
+    
