@@ -13,7 +13,7 @@ display = Display(visible=0, size=(800, 800))
 display.start()
  
 
-@pytest.fixture()    
+@pytest.fixture(scope="module")    
 def driver(): 
     global driver
     chromedriver_autoinstaller.install()
@@ -38,7 +38,7 @@ for option in options:
     options.add_argument("--disable-notifications")
     driver = webdriver.Chrome()
     yield driver
-    driver.quit() 
+    driver.quit()
 
 def test_ShopNowButtonHero(driver):
     driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
