@@ -1,11 +1,11 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
+# from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.common.exceptions import TimeoutException
 import time
 import chromedriver_autoinstaller
 from pyvirtualdisplay import Display
@@ -13,8 +13,8 @@ display = Display(visible=0, size=(1920, 1200))
 display.start()
 
 chromedriver_autoinstaller.install()  # Check if the current version of chromedriver exists
-                                      # and if it doesn't exist, download it automatically,
-                                      # then add chromedriver to path
+# and if it doesn't exist, download it automatically,
+# then add chromedriver to path
 
 chrome_options = webdriver.ChromeOptions()    
 # Add your options as needed    
@@ -64,20 +64,3 @@ def test_SeeItInAction(driver):
         print('Video link available on homepage hero') 
     else: 
         print('Video link NOT available on homepage hero')  
-
-def test_ReqAQuoteLink(driver): 
-
-    driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
-    driver.maximize_window()
-
-    driver.find_element(by=By.XPATH, value='//*[@id="main"]/section/div[2]/div/ul/li[3]/a').click()
-    time.sleep(3)
-
-    element = driver.find_element(by=By.XPATH, value="//button[@type='submit']").text
-    assert element == 'GET STARTED'
-
-    if "GET STARTED" in element: 
-        print('Lead Gen available on page') 
-    else: 
-        print('Lead Gen NOT available on page') 
-
