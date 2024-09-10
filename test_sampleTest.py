@@ -60,4 +60,61 @@ def test_SeeItInAction(driver):
     else: 
         print('Video link NOT available on homepage hero')  
 
-    
+def test_JumpLinks(driver):  
+
+    driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
+    driver.maximize_window()
+    driver.refresh()
+
+#explore speeds jump link
+
+    driver.find_element(by=By.XPATH, value='//*[@id="main"]/section/div[2]/div/ul/li[1]/a').click()
+    time.sleep(1)
+
+    element = driver.find_element(by=By.XPATH, value="//h2[normalize-space()='BUSINESS INTERNET STANDARD']").text
+    assert element == 'BUSINESS INTERNET STANDARD'
+
+    if "BUSINESS INTERNET STANDARD" in element: 
+        print('Explore Speeds section available from jump link') 
+    else: 
+        print('Explore Speeds jump link not working') 
+
+#solutions jump link
+
+    driver.find_element(by=By.XPATH, value='//*[@id="main"]/section/div[2]/div/ul/li[2]/a').click()
+    time.sleep(1)
+
+    element = driver.find_element(by=By.XPATH, value="//h3[normalize-space()='Helping you stay connected plus protected']").text
+    assert element == 'Helping you stay connected plus protected'
+
+    if "Helping you stay connected plus protected" in element: 
+        print('Solutions section available from jump link') 
+    else: 
+        print('Solutions jump link not working') 
+
+#get a quote jump link
+
+    driver.find_element(by=By.XPATH, value='//*[@id="main"]/section/div[2]/div/ul/li[3]/a').click()
+    time.sleep(1)
+
+    element = driver.find_element(by=By.XPATH, value="//legend[@class='headline-4']").text
+    assert element == 'Get a free quote in 2 easy steps'
+
+    if "Get a free quote in 2 easy steps" in element: 
+        print('Get a quote section available from jump link') 
+    else: 
+        print('Get a quote jump link not working') 
+
+
+#get pricing jump link  
+
+    driver.find_element(by=By.XPATH, value='//*[@id="main"]/section/div[2]/div/ul/li[4]/a').click()
+    time.sleep(1)
+
+    element = driver.find_element(by=By.XPATH, value="//h2[contains(text(),'Let’s find some deals in your area')]").text
+    assert element == 'Let’s find some deals in your area'
+
+    if "Let’s find some deals in your area" in element: 
+        print('Get pricing section available from jump link') 
+    else: 
+        print('Get pricing jump link not working') 
