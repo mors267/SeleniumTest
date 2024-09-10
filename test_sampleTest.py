@@ -15,9 +15,14 @@ display.start()
 
 @pytest.fixture(scope="module")    
 def driver(): 
-    global driver
-    chromedriver_autoinstaller.install()
     options = Options()
+    options.add_argument("--disable-notifications")
+    driver = webdriver.Chrome(options=options)
+    chromedriver_autoinstaller.install()
+    chrome_options = webdriver.ChromeOptions()  
+    yield driver
+    driver.quit()
+    chromedriver_autoinstaller.install()
     chrome_options = webdriver.ChromeOptions()      
     options = [
   # Define window size here
@@ -26,19 +31,8 @@ def driver():
     "--headless",
     "--disable-gpu",
     #"--window-size=1920,1200",
-    #"--ignore-certificate-errors",
-    #"--disable-extensions",
-    #"--no-sandbox",
-    #"--disable-dev-shm-usage",
     #'--remote-debugging-port=9222'
 ]
-
-for option in options:
-    chrome_options.add_argument(option)
-    options.add_argument("--disable-notifications")
-    driver = webdriver.Chrome()
-    yield driver
-    driver.quit()
 
 def test_ShopNowButtonHero(driver):
     driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
