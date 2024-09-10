@@ -32,10 +32,8 @@ def driver():
     driver.quit()
 
 
-def test_ShopInternetDropDownLinks(driver):
+def test_ShopNowButtonHero(driver):
     driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
-    driver.maximize_window()
-    driver.refresh()
 
     #view all offers link
   
@@ -47,8 +45,6 @@ def test_ShopInternetDropDownLinks(driver):
 def test_SeeItInAction(driver):
 
     driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
-    driver.maximize_window()
-    driver.refresh()
 
     driver.find_element(by=By.XPATH, value="//span[contains(text(),'SEE IT IN ACTION')]").click()
     time.sleep(2)
@@ -65,8 +61,6 @@ def test_SeeItInAction(driver):
 def test_JumpLinks(driver):  
 
     driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
-    driver.maximize_window()
-    driver.refresh()
 
 #explore speeds jump link
 
