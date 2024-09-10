@@ -48,7 +48,9 @@ def driver():
 
 def test_ShopNowButtonHero(driver):
     driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
-
+    driver.maximize_window()
+    driver.refresh()
+  
     #view all offers link
   
     element = driver.find_element(By.XPATH, '//*[@id="main"]/div[3]/div/div[4]/a')
@@ -57,7 +59,10 @@ def test_ShopNowButtonHero(driver):
     print("CTA URL:", element.get_attribute('href'))
 
 def test_SeeItInAction(driver):
-
+    driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
+    driver.maximize_window()
+    driver.refresh()
+  
     driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
 
     driver.find_element(by=By.XPATH, value="//span[contains(text(),'SEE IT IN ACTION')]").click()
@@ -75,6 +80,8 @@ def test_SeeItInAction(driver):
 def test_JumpLinks(driver):  
 
     driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
+    driver.maximize_window()
+    driver.refresh()
 
 #explore speeds jump link
 
