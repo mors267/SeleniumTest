@@ -16,11 +16,11 @@ chromedriver_autoinstaller.install()  # Check if the current version of chromedr
                                       # and if it doesn't exist, download it automatically,
                                       # then add chromedriver to path
 
-options = Options();
-options.addArguments("--headless");
-options.addArguments("--disable-gpu");
-options.addArguments("--no-sandbox");
-options.addArguments("--allow-insecure-localhost")
+options = Options()
+options.add_argument("--headless");
+options.add_argument("--window-size=1440, 900");
+options.addArguments("--allow-insecure-localhost");
+options.addArguments("--disable-gpu")
 
 
 @pytest.fixture(scope="module")
