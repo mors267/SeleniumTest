@@ -19,8 +19,7 @@ chromedriver_autoinstaller.install()  # Check if the current version of chromedr
 options = Options()
 options.add_argument("--headless");
 options.add_argument("--window-size=1440, 900");
-options.addArguments("--allow-insecure-localhost");
-options.addArguments("--disable-gpu")
+options.addArguments("--allow-insecure-localhost")
 
 
 @pytest.fixture(scope="module")
