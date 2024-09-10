@@ -18,7 +18,7 @@ chromedriver_autoinstaller.install()  # Check if the current version of chromedr
 
 options = Options()
 options.add_argument("--headless");
-options.add_argument("--window-size=1440, 900")
+options.add_argument("--window-size=1920, 1080")
 
 
 @pytest.fixture(scope="module")
@@ -30,60 +30,108 @@ def browser():
     driver.quit()
 
 
-def test_HomepageLOBTiles(browser):
-    # Load the URL
-    browser.get('https://business.comcast.com/?disablescripts=true')
-    browser.maximize_window()
-    browser.refresh()
+def test_ShopInternetDropDownLinks(browser):
+    driver.get('https://business.comcast.com/?disablescripts=true')
+    driver.maximize_window()
+    driver.refresh()
 
-    # Define elements and their expected href values
-    elements = {
-        "//a[@href='/learn/mobile']": 'https://business.comcast.com/learn/mobile',
-        "//a[@href='/learn/internet']": 'https://business.comcast.com/learn/internet',
-        "//a[@href='/learn/phone']": 'https://business.comcast.com/learn/phone',
-        "//a[@href='/learn/internet/security-edge']": 'https://business.comcast.com/learn/internet/security-edge'
-    }
+#view all offers link
+    element = driver.find_element(by=By.XPATH, value='//*[@id="bsd-nav-meganav-panel-Shop"]/section/div[1]/a').get_attribute('href')
+    assert element == 'https://business.comcast.com/shop/offers?services=All&internetdownloadspeed=All&contractlength=All&price=All'
 
-    # Loop through elements, assert href value, and print result
-    for xpath, expected_href in elements.items():
-        element = browser.find_element(By.XPATH, xpath)
-        assert element.get_attribute('href') == expected_href
-        print('\n' + xpath + ' href value matches expected URL')
-        print("CTA URL:", element.get_attribute('href'))
+    if "https://business.comcast.com/shop/offers?services=All&internetdownloadspeed=All&contractlength=All&price=All" in element: 
+        print('View all offers link available in shop global header') 
+    else: 
+        print('view all offers link NOT available in shop global header')
+    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="bsd-nav-meganav-panel-Shop"]/section/div[1]/a').get_attribute('href'))
+
+    #HMD link
+    element = driver.find_element(by=By.XPATH, value='//*[@id="bsd-nav-help-me-decide"]/a').get_attribute('href')
+    assert element == 'https://business.comcast.com/learn/solution-finder'
+
+    if "https://business.comcast.com/learn/solution-finder" in element: 
+        print('\n''HMD link available in shop global header') 
+    else: 
+        print('HMD link NOT available in shop global header')
+    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="bsd-nav-help-me-decide"]/a').get_attribute('href'))  
+
+    #internet link
+    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-header-id"]').get_attribute('href')
+    assert element == 'https://business.comcast.com/learn/internet'
+
+    if "https://business.comcast.com/learn/internet" in element: 
+        print('\n''Internet link available in shop global header') 
+    else: 
+        print('Internet link NOT available in shop global header')
+    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-header-id"]').get_attribute('href')) 
+
+    #Wifi pro link
+    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[1]/a').get_attribute('href')
+    assert element == 'https://business.comcast.com/learn/internet/wifi-pro'
+
+    if "https://business.comcast.com/learn/internet/wifi-pro" in element: 
+        print('\n''Wifi pro link available in shop global header') 
+    else: 
+        print('Wifi pro link NOT available in shop global header')
+    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[1]/a').get_attribute('href')) 
+
+    #Connection pro link
+    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[2]/a').get_attribute('href')
+    assert element == 'https://business.comcast.com/learn/internet/connection-pro-automatic-backup'
+
+    if "https://business.comcast.com/learn/internet/connection-pro-automatic-backup" in element: 
+        print('\n''Connection pro link available in shop global header') 
+    else: 
+        print('Connection pro link NOT available in shop global header')
+    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[2]/a').get_attribute('href')) 
+
+    #SecurityEdge pro link
+    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[3]/a').get_attribute('href')
+    assert element == 'https://business.comcast.com/learn/internet/security-edge'
+
+    if "https://business.comcast.com/learn/internet/security-edge" in element: 
+        print('\n''SecurityEdge link available in shop global header') 
+    else: 
+        print('SecurityEdge link NOT available in shop global header')
+    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[3]/a').get_attribute('href'))    
+
+    #Gig Speed network link
+    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[4]/a').get_attribute('href')
+    assert element == 'https://business.comcast.com/learn/gigabit-internet'
+
+    if "https://business.comcast.com/learn/gigabit-internet" in element: 
+        print('\n''Gig speed network link available in shop global header') 
+    else: 
+        print('Gig speed network link NOT available in shop global header')
+    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[4]/a').get_attribute('href'))
+
+    #internet Speed test link
+    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[5]/a').get_attribute('href')
+    assert element == 'https://business.comcast.com/learn/internet-speed-test'
+
+    if "https://business.comcast.com/learn/internet-speed-test" in element: 
+        print('\n''Internet speed test link available in shop global header') 
+    else: 
+        print('Internet speed test link NOT available in shop global header')
+    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[5]/a').get_attribute('href'))
+    
+    #Ethernet dedicated link
+    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[6]/a').get_attribute('href')
+    assert element == 'https://business.comcast.com/learn/internet/dedicated-internet'
+
+    if "https://business.comcast.com/learn/internet/dedicated-internet" in element: 
+        print('\n''Ethernet dedicated link available in shop global header') 
+    else: 
+        print('Ethernet dedicated test link NOT available in shop global header')
+    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[6]/a').get_attribute('href'))
+  
+    #SD-Wan for Small Business link
+    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[7]/a').get_attribute('href')
+    assert element == 'https://business.comcast.com/learn/internet/sd-wan-small-business'
+
+    if "https://business.comcast.com/learn/internet/sd-wan-small-business" in element: 
+        print('\n''SD-WAN for Small Business link available in shop global header') 
+    else: 
+        print('SD-Wan for Small Business link NOT available in shop global header')
+    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[7]/a').get_attribute('href'))
         
-
-def test_HomepageLOBTiles(browser):
-    # Load the URL
-    browser.get('https://business.comcast.com/?disablescripts=true')
-    browser.maximize_window()
-    browser.refresh()
-
-    # Define elements and their expected href values
-    elements = {
-        "//a[@href='/learn/mobile']": 'https://business.comcast.com/learn/mobile',
-        "//a[@href='/learn/internet']": 'https://business.comcast.com/learn/internet',
-        "//a[@href='/learn/phone']": 'https://business.comcast.com/learn/phone',
-        "//a[@href='/learn/internet/security-edge']": 'https://business.comcast.com/learn/internet/security-edge'
-    }
-
-    # Loop through elements, assert href value, and print result
-    for xpath, expected_href in elements.items():
-        element = browser.find_element(By.XPATH, xpath)
-        assert element.get_attribute('href') == expected_href
-        print('\n' + xpath + ' href value matches expected URL')
-        print("CTA URL:", element.get_attribute('href'))
-        
-
-
-def test_HomepageHMDSection(browser):
-    # Load the URL
-    browser.get('https://business.comcast.com/?disablescripts=true')
-    browser.maximize_window()
-    browser.refresh()
-
-    # Find and assert href value for HMD section
-    element = browser.find_element(By.CSS_SELECTOR, '.button.button--lg.button-tertiary.button-tertiary--no-border')
-    assert element.get_attribute('href') == 'https://business.comcast.com/learn/solution-finder'
-    print('HMD link available in section')
-    print("CTA URL:", element.get_attribute('href'))
-
