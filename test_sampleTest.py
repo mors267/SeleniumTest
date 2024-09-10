@@ -42,4 +42,22 @@ def test_ShopInternetDropDownLinks(driver):
     print('Pass')
     print("CTA URL:", element.get_attribute('href'))
 
+def test_SeeItInAction(driver):
+
+    driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
+    driver.maximize_window()
+    driver.refresh()
+
+    driver.find_element(by=By.XPATH, value="//span[contains(text(),'SEE IT IN ACTION')]").click()
+    time.sleep(2)
+    driver.find_element(by=By.XPATH, value="//div[@class='cb-modal cb-modal-video']//span[@class='cb-text-icon cb-text-icon--close cb-text-icon--md']").click()
+
+    element = driver.find_element(by=By.XPATH, value="//span[contains(text(),'SEE IT IN ACTION')]").text
+    assert element == 'SEE IT IN ACTION'
+
+    if "SEE IT IN ACTION" in element: 
+        print('Video link available on homepage hero') 
+    else: 
+        print('Video link NOT available on homepage hero')  
+
     
