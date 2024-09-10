@@ -9,30 +9,42 @@ from selenium.common.exceptions import TimeoutException
 import time
 import chromedriver_autoinstaller
 from pyvirtualdisplay import Display
-display = Display(visible=0, size=(800, 800))  
+display = Display(visible=0, size=(1920, 1200))  
 display.start()
- 
+
+chromedriver_autoinstaller.install()  # Check if the current version of chromedriver exists
+                                      # and if it doesn't exist, download it automatically,
+                                      # then add chromedriver to path
+
+chrome_options = webdriver.ChromeOptions()    
+# Add your options as needed    
+options = [
+  # Define window size here
+    "--window-size=1920,1200",
+    "--ignore-certificate-errors"
+    "--headless",
+    "--disable-gpu",
+    #"--window-size=1920,1200",
+    "--ignore-certificate-errors",
+    #"--disable-extensions",
+    #"--no-sandbox",
+    "--disable-dev-shm-usage",
+    #'--remote-debugging-port=9222'
+]
+
+for option in options:
+    chrome_options.add_argument(option)
+
 
 @pytest.fixture(scope="module")    
 def driver(): 
     options = Options()
     options.add_argument("--disable-notifications")
+    options.add_argument("--headless")
+    options.add_argument("--window-size=1920, 1200")
     driver = webdriver.Chrome(options=options)
-    chromedriver_autoinstaller.install()
-    chrome_options = webdriver.ChromeOptions()  
     yield driver
-    driver.quit()
-    chromedriver_autoinstaller.install()
-    chrome_options = webdriver.ChromeOptions()      
-    options = [
-  # Define window size here
-    "--window-size=1440,1200",
-    "--ignore-certificate-errors",
-    "--headless",
-    "--disable-gpu",
-    #"--window-size=1920,1200",
-    #'--remote-debugging-port=9222'
-]
+    driver.quit()  
 
 def test_ShopNowButtonHero(driver):
     driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
