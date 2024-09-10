@@ -81,166 +81,38 @@ def test_ReqAQuoteLink(driver):
     else: 
         print('Lead Gen NOT available on page') 
 
-def test_JumpLinks(driver):  
+def test_OOF(driver):
 
-    driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
+    driver.get('https://business.comcast.com/shop/gateway?disablescripts=true')
     driver.maximize_window()
 
-#explore speeds jump link
-
-    driver.find_element(by=By.XPATH, value='//*[@id="main"]/section/div[2]/div/ul/li[1]/a').click()
-    time.sleep(1)
-
-    element = driver.find_element(by=By.XPATH, value="//h2[normalize-space()='BUSINESS INTERNET STANDARD']").text
-    assert element == 'BUSINESS INTERNET STANDARD'
-
-    if "BUSINESS INTERNET STANDARD" in element: 
-        print('Explore Speeds section available from jump link') 
-    else: 
-        print('Explore Speeds jump link not working') 
-
-#solutions jump link
-
-    driver.find_element(by=By.XPATH, value='//*[@id="main"]/section/div[2]/div/ul/li[2]/a').click()
-    time.sleep(1)
-
-    element = driver.find_element(by=By.XPATH, value="//h3[normalize-space()='Helping you stay connected plus protected']").text
-    assert element == 'Helping you stay connected plus protected'
-
-    if "Helping you stay connected plus protected" in element: 
-        print('Solutions section available from jump link') 
-    else: 
-        print('Solutions jump link not working') 
-
-#get a quote jump link
-
-    driver.find_element(by=By.XPATH, value='//*[@id="main"]/section/div[2]/div/ul/li[3]/a').click()
-    time.sleep(1)
-
-    element = driver.find_element(by=By.XPATH, value="//legend[@class='headline-4']").text
-    assert element == 'Get a free quote in 2 easy steps'
-
-    if "Get a free quote in 2 easy steps" in element: 
-        print('Get a quote section available from jump link') 
-    else: 
-        print('Get a quote jump link not working') 
-
-
-#get pricing jump link  
-
-    driver.find_element(by=By.XPATH, value='//*[@id="main"]/section/div[2]/div/ul/li[4]/a').click()
-    time.sleep(1)
-
-    element = driver.find_element(by=By.XPATH, value="//h2[contains(text(),'Let’s find some deals in your area')]").text
-    assert element == 'Let’s find some deals in your area'
-
-    if "Let’s find some deals in your area" in element: 
-        print('Get pricing section available from jump link') 
-    else: 
-        print('Get pricing jump link not working') 
-
-def test_ShopInternetDropDownLinks(driver):
-
-    driver.get('https://business.comcast.com/?disablescripts=true')
-    driver.maximize_window()
-
-#view all offers link
-    element = driver.find_element(by=By.XPATH, value='//*[@id="bsd-nav-meganav-panel-Shop"]/section/div[1]/a').get_attribute('href')
-    assert element == 'https://business.comcast.com/shop/offers?services=All&internetdownloadspeed=All&contractlength=All&price=All'
-
-    if "https://business.comcast.com/shop/offers?services=All&internetdownloadspeed=All&contractlength=All&price=All" in element: 
-        print('View all offers link available in shop global header') 
-    else: 
-        print('view all offers link NOT available in shop global header')
-    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="bsd-nav-meganav-panel-Shop"]/section/div[1]/a').get_attribute('href'))
-
-    #HMD link
-    element = driver.find_element(by=By.XPATH, value='//*[@id="bsd-nav-help-me-decide"]/a').get_attribute('href')
-    assert element == 'https://business.comcast.com/learn/solution-finder'
-
-    if "https://business.comcast.com/learn/solution-finder" in element: 
-        print('\n''HMD link available in shop global header') 
-    else: 
-        print('HMD link NOT available in shop global header')
-    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="bsd-nav-help-me-decide"]/a').get_attribute('href'))  
-
-    #internet link
-    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-header-id"]').get_attribute('href')
-    assert element == 'https://business.comcast.com/learn/internet'
-
-    if "https://business.comcast.com/learn/internet" in element: 
-        print('\n''Internet link available in shop global header') 
-    else: 
-        print('Internet link NOT available in shop global header')
-    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-header-id"]').get_attribute('href')) 
-
-    #Wifi pro link
-    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[1]/a').get_attribute('href')
-    assert element == 'https://business.comcast.com/learn/internet/wifi-pro'
-
-    if "https://business.comcast.com/learn/internet/wifi-pro" in element: 
-        print('\n''Wifi pro link available in shop global header') 
-    else: 
-        print('Wifi pro link NOT available in shop global header')
-    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[1]/a').get_attribute('href')) 
-
-    #Connection pro link
-    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[2]/a').get_attribute('href')
-    assert element == 'https://business.comcast.com/learn/internet/connection-pro-automatic-backup'
-
-    if "https://business.comcast.com/learn/internet/connection-pro-automatic-backup" in element: 
-        print('\n''Connection pro link available in shop global header') 
-    else: 
-        print('Connection pro link NOT available in shop global header')
-    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[2]/a').get_attribute('href')) 
-
-    #SecurityEdge pro link
-    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[3]/a').get_attribute('href')
-    assert element == 'https://business.comcast.com/learn/internet/security-edge'
-
-    if "https://business.comcast.com/learn/internet/security-edge" in element: 
-        print('\n''SecurityEdge link available in shop global header') 
-    else: 
-        print('SecurityEdge link NOT available in shop global header')
-    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[3]/a').get_attribute('href'))    
-
-    #Gig Speed network link
-    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[4]/a').get_attribute('href')
-    assert element == 'https://business.comcast.com/learn/gigabit-internet'
-
-    if "https://business.comcast.com/learn/gigabit-internet" in element: 
-        print('\n''Gig speed network link available in shop global header') 
-    else: 
-        print('Gig speed network link NOT available in shop global header')
-    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[4]/a').get_attribute('href'))
-
-    #internet Speed test link
-    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[5]/a').get_attribute('href')
-    assert element == 'https://business.comcast.com/learn/internet-speed-test'
-
-    if "https://business.comcast.com/learn/internet-speed-test" in element: 
-        print('\n''Internet speed test link available in shop global header') 
-    else: 
-        print('Internet speed test link NOT available in shop global header')
-    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[5]/a').get_attribute('href'))
+    timeout = 15
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, "//button[@type='submit']"))
+        WebDriverWait(driver, timeout).until(element_present)
+    except TimeoutException:
+        print ('Gateway page did not display')
+        
+    driver.find_element(by=By.XPATH, value="//input[@id='address']").click()
+    driver.find_element(By.ID, "address").send_keys("211 W 56TH ST FRNT 1 NEW YORK NY 10019")
+    time.sleep(5)
+    driver.find_element(by=By.XPATH, value='//*[@id="0"]').click()
+    driver.find_element(by=By.XPATH, value="//button[@type='submit']").click()
     
-    #Ethernet dedicated link
-    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[6]/a').get_attribute('href')
-    assert element == 'https://business.comcast.com/learn/internet/dedicated-internet'
-
-    if "https://business.comcast.com/learn/internet/dedicated-internet" in element: 
-        print('\n''Ethernet dedicated link available in shop global header') 
+    timeout = 15
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, "//button[normalize-space()='FIND A DIFFERENT PROVIDER']"))
+        WebDriverWait(driver, timeout).until(element_present)
+    except:
+        print ('Could not localize OOF address location!')
+    time.sleep(3)
+    
+    element = driver.find_element(by=By.XPATH, value="//h2[@class='headline-4']").text
+    assert element == 'Our service isn’t available at this address. You can try a different address or explore other options.'
+    
+    #validate correct text is present
+    if "Our service isn’t available at this address. You can try a different address or explore other options." in element: 
+        print('Out of Footprint messaging displaying correctly') 
     else: 
-        print('Ethernet dedicated test link NOT available in shop global header')
-    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[6]/a').get_attribute('href'))
-  
-    #SD-Wan for Small Business link
-    element = driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[7]/a').get_attribute('href')
-    assert element == 'https://business.comcast.com/learn/internet/sd-wan-small-business'
-
-    if "https://business.comcast.com/learn/internet/sd-wan-small-business" in element: 
-        print('\n''SD-WAN for Small Business link available in shop global header') 
-    else: 
-        print('SD-Wan for Small Business link NOT available in shop global header')
-    print("CTA URL: "+driver.find_element(by=By.XPATH, value='//*[@id="business-internet-list-id"]/li[7]/a').get_attribute('href'))
+        print('Out of Footprint messaging not displaying correctly')  
 
