@@ -22,14 +22,31 @@ options.add_argument("--window-size=1440, 900");
 options.addArguments("--allow-insecure-localhost")
 
 
-@pytest.fixture(scope="module")
-def driver():
+@pytest.fixture()    
+def driver(): 
+    global driver
     options = Options()
-    options.add_argument("--disable-notifications")
-    driver = webdriver.Chrome(options=options)
-    yield driver
-    driver.quit()
+    chrome_options = webdriver.ChromeOptions()      
+    options = [
+  # Define window size here
+    "--window-size=1440,1200",
+    "--ignore-certificate-errors",
+    "--headless",
+    "--disable-gpu",
+    #"--window-size=1920,1200",
+    #"--ignore-certificate-errors",
+    #"--disable-extensions",
+    #"--no-sandbox",
+    #"--disable-dev-shm-usage",
+    #'--remote-debugging-port=9222'
+]
 
+for option in options:
+    chrome_options.add_argument(option)
+    options.add_argument("--disable-notifications")
+    driver = webdriver.Chrome()
+    yield driver
+    driver.quit() 
 
 def test_ShopNowButtonHero(driver):
     driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
