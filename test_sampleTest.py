@@ -11,20 +11,12 @@ import chromedriver_autoinstaller
 from pyvirtualdisplay import Display
 display = Display(visible=0, size=(800, 800))  
 display.start()
-
-chromedriver_autoinstaller.install()  # Check if the current version of chromedriver exists
-                                      # and if it doesn't exist, download it automatically,
-                                      # then add chromedriver to path
-
-options = Options()
-options.add_argument("--headless");
-options.add_argument("--window-size=1440, 900");
-options.addArguments("--allow-insecure-localhost")
-
+ 
 
 @pytest.fixture()    
 def driver(): 
     global driver
+    chromedriver_autoinstaller.install()
     options = Options()
     chrome_options = webdriver.ChromeOptions()      
     options = [
