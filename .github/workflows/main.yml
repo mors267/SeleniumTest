@@ -1,7 +1,7 @@
 name: Run Selenium On GitHub Action
 on:
   schedule:
-    - cron: '0 14 * * *'  # This is 9:00 AM EST (14:00 UTC)
+    - cron: '15 19 * * *'  # This is 2:15 PM EST (6:15 UTC)
   workflow_dispatch:
     
 jobs:
