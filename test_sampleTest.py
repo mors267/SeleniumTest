@@ -65,3 +65,19 @@ def test_SeeItInAction(driver):
     else: 
         print('Video link NOT available on homepage hero')  
 
+def test_ReqAQuoteLink(driver): 
+
+    driver.get('https://business.comcast.com/learn/internet?disablescripts=true')
+    driver.maximize_window()
+
+    driver.find_element(by=By.XPATH, value='//*[@id="main"]/section/div[2]/div/ul/li[3]/a').click()
+    time.sleep(3)
+
+    element = driver.find_element(by=By.XPATH, value="//button[@type='submit']").text
+    assert element == 'GET STARTED'
+
+    if "GET STARTED" in element: 
+        print('Lead Gen available on page') 
+    else: 
+        print('Lead Gen NOT available on page') 
+
