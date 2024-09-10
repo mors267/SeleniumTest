@@ -22,7 +22,7 @@ options.add_argument("--window-size=1920, 1080")
 
 
 @pytest.fixture(scope="module")
-def browser():
+def driver():
     options = Options()
     options.add_argument("--disable-notifications")
     driver = webdriver.Chrome(options=options)
@@ -30,7 +30,7 @@ def browser():
     driver.quit()
 
 
-def test_ShopInternetDropDownLinks(browser):
+def test_ShopInternetDropDownLinks(driver):
     driver.get('https://business.comcast.com/?disablescripts=true')
     driver.maximize_window()
     driver.refresh()
