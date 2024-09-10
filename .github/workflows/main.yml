@@ -1,6 +1,9 @@
 name: Run Selenium On GitHub Action
 on:
+  schedule:
+    - cron: '0 14 * * *'  # This is 9:00 AM EST (14:00 UTC)
   workflow_dispatch:
+    
 jobs:
   scrape:
     runs-on: ubuntu-latest
