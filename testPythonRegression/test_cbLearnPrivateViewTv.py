@@ -140,7 +140,7 @@ def test_X1FeaturesJumpLink(driver):
 def test_SolutionsSectionJumpLink(driver):
 
     driver.get('https://business.comcast.com/learn/tv/private/?disablescripts=true')
-    driver.maximize_window(driver)
+    driver.maximize_window()
 
     driver.find_element(by=By.XPATH, value='//*[@id="main"]/section/div[2]/div/ul/li[4]/a').click()
     time.sleep(2)
