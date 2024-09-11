@@ -38,7 +38,7 @@ def driver():
     yield driver
     driver.quit() 
 
-def test_BroadbandLabelNED():  
+def test_BroadbandLabelNED(driver):  
   
     driver.maximize_window()
 
