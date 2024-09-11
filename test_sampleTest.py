@@ -38,10 +38,11 @@ def driver():
     yield driver
     driver.quit() 
 
-def test_SIK(driver):  
-    driver.get('https://business.comcast.com/shop/gateway/?disablescripts=true')
+def test_BroadbandLabelNED():  
+  
     driver.maximize_window()
-    time.sleep(3)
+
+    driver.get('https://business.comcast.com/shop/gateway?disablescripts=true')
     timeout = 15
     try:
         element_present = EC.presence_of_element_located((By.XPATH, "//button[@type='submit']"))
@@ -49,93 +50,146 @@ def test_SIK(driver):
     except TimeoutException:
         print ('Gateway page did not display')
     driver.find_element(by=By.XPATH, value="//input[@id='address']").click()
-    driver.find_element(By.ID, "address").send_keys("3201 APOLLO DR OFC CHAMPAIGN IL 61822")
+    driver.find_element(By.ID, "address").send_keys("4519 main st, manchester center, VT 05255")
     time.sleep(5)
     driver.find_element(by=By.XPATH, value='//*[@id="0"]').click()
-    driver.find_element(by=By.XPATH, value="//button[@type='submit']").click()
-    
+    driver.find_element(by=By.XPATH, value='//*[@id="main"]/div[2]/section/div/div/div[1]/div/div/form/div[2]/button').click()
+
     timeout = 15
     try:
-        element_present = EC.presence_of_element_located((By.XPATH, "//div[normalize-space()='Advanced']"))
+        element_present = EC.presence_of_element_located((By.XPATH, "//p[normalize-space()='300 Mbps']"))
         WebDriverWait(driver, timeout).until(element_present)
     except:
-        print ('Could not localize in SIK enabled location!')
+        print ('Shop offers page did not display!')
     time.sleep(3)
-    
-    # click on offer and go in buy flow
-    
+
+    # check broadband label on speed tiers 
+
+    #Essential
+    driver.get('https://business.comcast.com/shop/offers/?disablescripts=true')
+    time.sleep(.5)
+    driver.find_element(by=By.XPATH, value="//div[normalize-space()='Essential']").click()
+
+    element = driver.find_element(by=By.XPATH, value='//*[@id="tabpanel-1"]/div/div[2]/div/div[1]')
+    driver.execute_script("return arguments[0].scrollIntoView();", element)
+    time.sleep(1.5)
+
+    timeout = 10
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="broadband-label-BI150"]/div[1]/p[1]'))
+        WebDriverWait(driver, timeout).until(element_present)
+    except:
+        print ('Labels section not showing')
+
+    element = driver.find_element(by=By.XPATH, value="//p[normalize-space()='Essential, 150 Mbps/25 Mbps']").text
+    assert element == 'Essential, 150 Mbps/25 Mbps'
+
+    if "Essential, 150 Mbps/25 Mbps" in element: 
+        print('Essential ingredient label displaying') 
+    else: 
+        print('Essential ingredient label NOT displaying')
+
+    element = driver.find_element(by=By.XPATH, value='//*[@id="broadband-label-BI150"]/div[1]/p[1]').text
+    print("Speed displayed in chart: " + element)
+
+    #Standard
+    driver.find_element(by=By.XPATH, value="//div[normalize-space()='Standard']").click()
+
+    # element = driver.find_element(by=By.XPATH, value='//*[@id="tabpanel-2"]/div/div[2]/div/div[1]')
+    # driver.execute_script("return arguments[0].scrollIntoView();", element)
+
+    timeout = 10
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="broadband-label-BI300"]/div[1]/p[1]'))
+        WebDriverWait(driver, timeout).until(element_present)
+    except:
+        print ('Labels section not showing')
+
+
+    element = driver.find_element(by=By.XPATH, value="//p[normalize-space()='Standard, 300 Mbps/35 Mbps']").text
+    assert element == 'Standard, 300 Mbps/35 Mbps'
+
+    if "Standard, 300 Mbps/35 Mbps" in element: 
+        print('\n''Standard ingredient label displaying') 
+    else: 
+        print('\n''Standard ingredient label NOT displaying')
+
+    element = driver.find_element(by=By.XPATH, value='//*[@id="broadband-label-BI300"]/div[1]/p[1]').text
+    print("Speed displayed in chart: " + element)
+
+    #Performance
+    driver.find_element(by=By.XPATH, value="//div[normalize-space()='Performance']").click()
+
+    # element = driver.find_element(by=By.XPATH, value='//*[@id="tabpanel-3"]/div/div[2]/div/div[1]')
+    # driver.execute_script("return arguments[0].scrollIntoView();", element)
+
+    timeout = 10
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="broadband-label-BI500"]/div[1]/p[1]'))
+        WebDriverWait(driver, timeout).until(element_present)
+    except:
+        print ('Labels section not showing')
+
+    element = driver.find_element(by=By.XPATH, value="//p[normalize-space()='Performance, 500 Mbps/35 Mbps']").text
+    assert element == 'Performance, 500 Mbps/35 Mbps'
+
+    if "Performance, 500 Mbps/35 Mbps" in element: 
+        print('\n''Performance ingredient label displaying') 
+    else: 
+        print('\n''Performance ingredient label NOT displaying')
+
+    element = driver.find_element(by=By.XPATH, value='//*[@id="broadband-label-BI500"]/div[1]/p[1]').text
+    print("Speed displayed in chart: " + element)
+
+    #Advanced
+    driver.find_element(by=By.XPATH, value="//div[normalize-space()='Advanced']").click()
+
+    # element = driver.find_element(by=By.XPATH, value='//*[@id="tabpanel-4"]/div/div[2]/div/div[1]')
+    # driver.execute_script("return arguments[0].scrollIntoView();", element)
+
+    timeout = 10
+    try:
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="broadband-label-BI800"]/div[1]/p[1]'))
+        WebDriverWait(driver, timeout).until(element_present)
+    except:
+        print ('Labels section not showing')
+
+    element = driver.find_element(by=By.XPATH, value="//p[normalize-space()='Advanced, 800 Mbps/35 Mbps']").text
+    assert element == 'Advanced, 800 Mbps/35 Mbps'
+
+    if "Advanced, 800 Mbps/35 Mbps" in element: 
+        print('\n''Advanced ingredient label displaying') 
+    else: 
+        print('\n''Advanced ingredient label NOT displaying')
+
+    element = driver.find_element(by=By.XPATH, value='//*[@id="broadband-label-BI800"]/div[1]/p[1]').text
+    print("Speed displayed in chart: " + element)
+
+
+    #Gigabit Extra
     driver.find_element(by=By.XPATH, value="//div[normalize-space()='Gigabit Extra']").click()
-    driver.find_element(by=By.XPATH, value="//a[@id='9326104226-primary-button']//span[@aria-hidden='true'][normalize-space()='Order Now']").click()
-    
-    timeout = 15
-    try:
-        element_present = EC.presence_of_element_located((By.XPATH, "//span[@class='s-footer-summary-drawer-item-incentive-name fs-14 _extended sik-incentive']"))
-        WebDriverWait(driver, timeout).until(element_present)
-    except:
-        element = driver.find_element(by=By.XPATH, value="//button[normalize-space()='CONTINUE']")
-        driver.execute_script("return arguments[0].scrollIntoView();", element)
-        time.sleep(3)
-        
-        driver.find_element(by=By.XPATH, value="//button[normalize-space()='CONTINUE']").click()
-        time.sleep(3)
 
-        print ('SIK not displaying in buy flow')
-    
-    time.sleep(3)
+    # element = driver.find_element(by=By.XPATH, value='//*[@id="tabpanel-6"]/div/div[2]/div/div[1]')
+    # driver.execute_script("return arguments[0].scrollIntoView();", element)
 
-    #SIK validation in buy flow
-    element = driver.find_element(by=By.XPATH, value="//h3[@class='cb-reveal-title']")
-    driver.execute_script("return arguments[0].scrollIntoView();", element)
-    time.sleep(3)
-            
-    driver.find_element(by=By.XPATH, value="//button[normalize-space()='CONTINUE']").click()
-    time.sleep(3)
     timeout = 10
     try:
-        element_present = EC.presence_of_element_located((By.XPATH, "//span[normalize-space()='I want the Getting Started self-installation kit']"))
+        element_present = EC.presence_of_element_located((By.XPATH, '//*[@id="broadband-label-BI1250"]/div[1]/p[1]'))
         WebDriverWait(driver, timeout).until(element_present)
     except:
-        print ('SIK not showing in installation page')
-    
-    element = driver.find_element(by=By.XPATH, value="//span[normalize-space()='I want the Getting Started self-installation kit']").text
-    assert element == 'I want the Getting Started self-installation kit'
+        print ('Labels section not showing')
 
-    if "I want the Getting Started self-installation kit" in element: 
-        print('SIK option displaying in installation page') 
+    element = driver.find_element(by=By.XPATH, value="//p[normalize-space()='Gigabit Extra, 1250 Mbps/35 Mbps']").text
+    assert element == 'Gigabit Extra, 1250 Mbps/35 Mbps'
+
+    if "Gigabit Extra, 1250 Mbps/35 Mbps" in element: 
+        print('\n''Gigabit Extra ingredient label displaying') 
     else: 
-        print('SIK option NOT displaying in installation page')
-    
-    #continue to checkout page
-    driver.find_element(by=By.XPATH, value="//button[normalize-space()='CHECKOUT']").click()
-    time.sleep(3)
-    timeout = 10
-    try:
-        element_present = EC.presence_of_element_located((By.XPATH, "//input[@id='firstName']"))
-        WebDriverWait(driver, timeout).until(element_present)
-    except:
-        print ('Checkout page did not display')
-        
-    driver.find_element(By.ID, "firstName").send_keys("SIK")
-    driver.find_element(By.ID, "lastName").send_keys("Test")
-    driver.find_element(By.ID, "businessName").send_keys("ComcastBusinessTest")
-    driver.find_element(By.ID, "telephoneNumber").send_keys("2672554566")
-    driver.find_element(By.ID, "emailAddress").send_keys("testsik@test.com")
+        print('\n''Gigabit Extra ingredient label NOT displaying')
 
-    driver.find_element(by=By.XPATH, value="//button[normalize-space()='CONTINUE']").click()
-    time.sleep(3)
+    element = driver.find_element(by=By.XPATH, value='//*[@id="broadband-label-BI1250"]/div[1]/p[1]').text
+    print("Speed displayed in chart: " + element)
 
-    element = driver.find_element(by=By.XPATH, value="//td[@class='cb-offer-summary-table-item cb-offer-summary-table-highlight--total']")
-    driver.execute_script("return arguments[0].scrollIntoView();", element)
-    time.sleep(3)
-    
-    element = driver.find_element(by=By.XPATH, value="//td[normalize-space()='Self Install']").text
-    assert element == 'Self Install'
-
-    if "Self Install" in element: 
-        print('SIK option displaying in Checkout page') 
-    else: 
-        print('SIK option NOT displaying in Checkout page')
-        
 #health check verification
 
     driver.get('https://business.comcast.com/healthcheck/')
