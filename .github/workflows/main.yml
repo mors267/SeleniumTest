@@ -29,9 +29,10 @@ jobs:
         run: sudo apt-get install xvfb
 
       - name: Running the Python script
+        run: |
           mkdir -p reports
-        run: pytest test_sampleTest.py --soft-asserts --html=reports/reports.html --self-contained-html
-        
+          pytest test_sampleTest.py --soft-asserts --html=reports/reports.html --self-contained-html
+          
       - name: Set output
         if: success() || failure()
         id: results
