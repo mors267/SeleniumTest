@@ -1,5 +1,7 @@
 name: Run Selenium On GitHub Action
 on:
+  schedule:
+    - cron: '0 10 * * *'
   workflow_dispatch:
     
 jobs:
@@ -29,10 +31,9 @@ jobs:
         run: sudo apt-get install xvfb
 
       - name: Running the Python script
-        run: |
           mkdir -p reports
-          pytest test_sampleTest.py --soft-asserts --html=reports/reports.html --self-contained-html
-          
+        run: pytest testPythonRegression/ --soft-asserts --html=reports/reports.html --self-contained-html
+        
       - name: Set output
         if: success() || failure()
         id: results
@@ -42,4 +43,4 @@ jobs:
         if: success() || failure()
         with:
           name: test-report
-          path: reports
+          path: ${{ steps.results.outputs.artifactPath }}
