@@ -32,7 +32,7 @@ jobs:
 
       - name: Running the Python script
           mkdir -p reports
-        run: pytest testPythonRegression/ --soft-asserts --html=reports/reports.html --self-contained-html
+        run: pytest folders/ --soft-asserts --html=reports/reports.html --self-contained-html
         
       - name: Set output
         if: success() || failure()
