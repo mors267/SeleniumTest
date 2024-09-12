@@ -43,4 +43,4 @@ jobs:
         if: success() || failure()
         with:
           name: test-report
-          path: ${{ steps.results.outputs.artifactPath }}
+          path: reports/
