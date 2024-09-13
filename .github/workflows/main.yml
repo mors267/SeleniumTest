@@ -31,17 +31,14 @@ jobs:
         run: sudo apt-get install xvfb
 
       - name: Running the Python script
-          mkdir -p reports
-        run: pytest testPythonRegression/ --soft-asserts --html=reports/reports.html --self-contained-html
-        
-      - name: Set output
-        if: success() || failure()
-        id: results
-        run: echo "artifactPath=reports" >> $GITHUB_OUTPUT
-
-      - uses: actions/upload-artifact@v4
-        if: success() || failure()
-        with:
-          name: test-report
-          path: ${{ steps.results.outputs.artifactPath }}
-        
+        run: |
+          pytest test_sampleTest.py --soft-asserts --html=reports/report-$(date +'%m%d%Y').html --self-contained-html
+ 
+      - name: Commit new test report
+        run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
+          git add reports/
+          git commit -m "Add new test report"
+          git push
+          git push https://x-access-token:${{ secrets.Mors_PAT }}@github.com/mors267/SeleniumTest.git HEAD:master
