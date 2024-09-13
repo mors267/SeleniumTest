@@ -33,7 +33,7 @@ jobs:
       - name: Running the Python script
         run: |
           pytest test_sampleTest.py --soft-asserts --html=reports/report-$(date +'%m%d%Y').html --self-contained-html
- 
+
       - name: Commit new test report
         run: |
           git config --local user.name "GitHub Actions"
@@ -42,3 +42,4 @@ jobs:
           git commit -m "Add new test report"
           git push
           git push https://x-access-token:${{ secrets.PAT }}@github.com/mors267/SeleniumTest.git HEAD:master
+
