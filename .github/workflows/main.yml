@@ -41,5 +41,5 @@ jobs:
           git add reports/
           git commit -m "Add new test report"
           git push
-          git push https://x-access-token:${{ secrets.PAT }}@github.com/mors267/SeleniumTest.git HEAD:master
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/mors267/SeleniumTest.git HEAD:master
 
