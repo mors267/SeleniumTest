@@ -30,30 +30,19 @@ jobs:
       - name: Install xvfb
         run: sudo apt-get install xvfb
 
-      - name: Run Test
-        if: always()
-        run: pytest test_sampleTest.py --alluredir=allure-results
-        continue-on-error: true
+      - name: Running the Python script
+        run: |
+          pytest test_sampleTest.py --soft-asserts --html=reports/report-$(date +'%m%d%Y').html --self-contained-html
 
-      - name: Get Allure history
-        uses: actions/checkout@v3
-        if: always()
-        continue-on-error: true
+      - name: Set output
+        if: success() || failure()
+        id: results
+        run: |
+          echo "artifactPath=reports" >> $GITHUB_OUTPUT
+          echo "date=$(date +'%m%d%Y')" >> $GITHUB_OUTPUT
+
+      - uses: actions/upload-artifact@v4
+        if: success() || failure()
         with:
-          ref: gh-pages
-          path: gh-pages
-
-      - name: Allure Report action from marketplace
-        uses: simple-elf/allure-report-action@v1.7
-        if: always()
-        with:
-          allure_results: allure-results
-          allure_history: allure-history
-
-      - name: Deploy report to Github Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v2
-        env:
-          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: allure-history
+          name: test-report-${{ steps.results.outputs.date }}
+          path: ${{ steps.results.outputs.artifactPath }}
