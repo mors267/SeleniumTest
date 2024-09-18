@@ -43,5 +43,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
-          name: test-report-${{ steps.results.outputs.date }}
+          name: LearnRegressionReport-${{ steps.results.outputs.date }}
           path: ${{ steps.results.outputs.artifactPath }}
