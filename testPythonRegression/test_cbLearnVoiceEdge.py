@@ -137,7 +137,7 @@ def test_AppStoreLinks(driver):
     driver.find_element(by=By.CSS_SELECTOR, value='#apps > div:nth-child(2) > div > div:nth-child(1) > div > div.rich-text.primary-2-up-rich-text > p:nth-child(3) > a:nth-child(2) > img').click()
     time.sleep(2)
 
-    element = driver.find_element(by=By.XPATH, value="//h1[@class='Fd93Bb ynrBgc xwcR9d']").text
+    element = driver.find_element(by=By.XPATH, value="//span[@class='AfwdI']").text
     assert element == 'Comcast Business'
 
     if "Comcast Business" in element: 
