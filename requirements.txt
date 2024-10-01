@@ -3,3 +3,4 @@ selenium==4.25.0
 webdriver-manager==4.0.1
 pytest-html==4.0.2
 pytest-soft-assertions==0.1.2
+selenium-stealth==1.0.6
