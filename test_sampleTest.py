@@ -1,7 +1,6 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 from selenium_stealth import stealth
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -10,50 +9,34 @@ from selenium.common.exceptions import TimeoutException
 import time
 import chromedriver_autoinstaller
 from pyvirtualdisplay import Display
+
 display = Display(visible=0, size=(1920, 1200))  
 display.start()
 
-chromedriver_autoinstaller.install()  # Check if the current version of chromedriver exists
-# and if it doesn't exist, download it automatically,
-# then add chromedriver to path
+chromedriver_autoinstaller.install()
 
-chrome_options = webdriver.ChromeOptions()    
-# Add your options as needed    
-options = [
-  # Define window size here
-    "--headless",
-    "--disable-gpu",
-    "--window-size=1920,1200",
-    "--ignore-certificate-errors"
-]
+@pytest.fixture()    
+def quicksetup(): 
+    global driver
+    chrome_options = Options()
+    chrome_options.add_argument("--disable-notifications")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920,1200")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
 
-for option in options:
-    chrome_options.add_argument(option)
-
-options = webdriver.ChromeOptions()
-options.add_argument("start-maximized")
-
-# options.add_argument("--headless")
-
-options.add_experimental_option("excludeSwitches", ["enable-automation"])
-options.add_experimental_option('useAutomationExtension', False)
-driver = webdriver.Chrome()
-
-stealth(driver,
+    driver = webdriver.Chrome(options=chrome_options)
+    
+    stealth(driver,
         languages=["en-US", "en"],
         vendor="Google Inc.",
         platform="Win32",
         webgl_vendor="Intel Inc.",
         renderer="Intel Iris OpenGL Engine",
         fix_hairline=True,
-        )
-    
-@pytest.fixture()    
-def quicksetup(): 
-    global driver
-    options = Options()
-    options.add_argument("--disable-notifications")
-    driver = webdriver.Chrome()
+    )
+
     driver.get('https://business.comcast.com/shop/gateway?disablescripts=true')
     driver.maximize_window()
     driver.refresh()
@@ -61,15 +44,14 @@ def quicksetup():
     driver.quit() 
     
 def test_OOF(quicksetup):
-    
-    driver = quicksetup  
+    driver = quicksetup
 
     timeout = 15
     try:
         element_present = EC.presence_of_element_located((By.XPATH, "//button[@type='submit']"))
         WebDriverWait(driver, timeout).until(element_present)
     except TimeoutException:
-        print ('Gateway page did not display')
+        print('Gateway page did not display')
         
     driver.find_element(by=By.XPATH, value="//input[@id='address']").click()
     driver.find_element(By.ID, "address").send_keys("211 W 56TH ST FRNT 1 NEW YORK NY 10019")
@@ -81,18 +63,19 @@ def test_OOF(quicksetup):
     try:
         element_present = EC.presence_of_element_located((By.XPATH, "//button[normalize-space()='FIND A DIFFERENT PROVIDER']"))
         WebDriverWait(driver, timeout).until(element_present)
-    except:
-        print ('Could not localize OOF address location!')
+    except TimeoutException:
+        print('Could not localize OOF address location!')
+    
     time.sleep(3)
     
     element = driver.find_element(by=By.XPATH, value="//h2[@class='headline-4']").text
     assert element == 'Our service isn’t available at this address. You can try a different address or explore other options.'
-    
-    #validate correct text is present
+
     if "Our service isn’t available at this address. You can try a different address or explore other options." in element: 
         print('Out of Footprint messaging displaying correctly') 
     else: 
-        print('Out of Footprint messaging not displaying correctly')  
+        print('Out of Footprint messaging not displaying correctly')
+
         
 
     
