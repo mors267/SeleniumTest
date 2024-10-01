@@ -1,7 +1,5 @@
 name: Run Selenium On GitHub Action
 on:
-  schedule:
-    - cron: '0 10 * * *'
   workflow_dispatch:
     
 jobs:
@@ -31,7 +29,7 @@ jobs:
         run: sudo apt-get install xvfb
 
       - name: Running the Python script
-        run: pytest test_sampleTest.py --soft-asserts --html=reports/LearnRegressionReport-$(date +'%m%d%Y').html --self-contained-html
+        run: pytest test_sampleTest.py --soft-asserts --html=reports/report-$(date +'%m%d%Y').html --self-contained-html
         
       - name: Set output
         if: success() || failure()
