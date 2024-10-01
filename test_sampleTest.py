@@ -1,28 +1,46 @@
-from selenium import webdriver 
 import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.options import Options
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.common.exceptions import TimeoutException
 import time
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+import chromedriver_autoinstaller
+from pyvirtualdisplay import Display
+display = Display(visible=0, size=(1920, 1200))  
+display.start()
 
+chromedriver_autoinstaller.install()  # Check if the current version of chromedriver exists
+# and if it doesn't exist, download it automatically,
+# then add chromedriver to path
 
+chrome_options = webdriver.ChromeOptions()    
+# Add your options as needed    
+options = [
+  # Define window size here
+    "--headless",
+    "--disable-gpu",
+    "--window-size=1920,1200",
+    "--ignore-certificate-errors"
+]
+
+for option in options:
+    chrome_options.add_argument(option)
+    
 @pytest.fixture()    
 def quicksetup(): 
     global driver
     options = Options()
     options.add_argument("--disable-notifications")
-    options.add_argument("--ignore-certificate-errors")
-    options.add_argument("--no-proxy-server")
-    options.add_argument("--no-sandbox")
     driver = webdriver.Chrome()
     driver.get('https://business.comcast.com/shop/gateway?disablescripts=true')
     driver.maximize_window()
     driver.refresh()
     yield driver
     driver.quit() 
-
+    
 def test_OOF(quicksetup):
     
     driver = quicksetup  
