@@ -4,7 +4,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium_stealth import stealth
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 import time
@@ -26,7 +25,7 @@ def quicksetup():
     chrome_options.add_argument("--window-size=1920,1200")
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option('useAutomationExtension', False)
-
+    
     driver = webdriver.Chrome(options=chrome_options)
     
     stealth(driver,
@@ -47,7 +46,7 @@ def quicksetup():
 def test_BroadbandLabelNED(quicksetup):  
 
     driver = quicksetup
-    
+    timeout = 15
     try:
         element_present = EC.presence_of_element_located((By.XPATH, "//button[@type='submit']"))
         WebDriverWait(driver, timeout).until(element_present)
@@ -205,6 +204,8 @@ def test_BroadbandLabelNED(quicksetup):
 def test_BroadbandLabelCEN(quicksetup):  
 
     driver = quicksetup
+    
+    timeout = 15
     try:
         element_present = EC.presence_of_element_located((By.XPATH, "//button[@type='submit']"))
         WebDriverWait(driver, timeout).until(element_present)
