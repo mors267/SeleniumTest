@@ -1,14 +1,53 @@
+import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium_stealth import stealth
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+import time
+import chromedriver_autoinstaller
+from pyvirtualdisplay import Display
 
+display = Display(visible=0, size=(1920, 1200))  
+display.start()
 
-def test_BroadbandLabelNED():  
+chromedriver_autoinstaller.install()
 
-    options = Options()
-    options.add_argument("--disable-notifications")
-    driver = webdriver.Chrome()
-    driver.maximize_window()
+@pytest.fixture()    
+def quicksetup(): 
+    global driver
+    chrome_options = Options()
+    chrome_options.add_argument("--disable-notifications")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--window-size=1920,1200")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+
+    driver = webdriver.Chrome(options=chrome_options)
+    
+    stealth(driver,
+        languages=["en-US", "en"],
+        vendor="Google Inc.",
+        platform="Win32",
+        webgl_vendor="Intel Inc.",
+        renderer="Intel Iris OpenGL Engine",
+        fix_hairline=True,
+    )
 
     driver.get('https://business.comcast.com/shop/gateway?disablescripts=true')
-    timeout = 15
+    driver.maximize_window()
+    driver.refresh()
+    yield driver
+    driver.quit() 
+
+def test_BroadbandLabelNED(quicksetup):  
+
+    driver = quicksetup
+    
     try:
         element_present = EC.presence_of_element_located((By.XPATH, "//button[@type='submit']"))
         WebDriverWait(driver, timeout).until(element_present)
