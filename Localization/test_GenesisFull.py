@@ -47,7 +47,8 @@ def quicksetup():
 def test_Genesis(quicksetup):  
 
     driver = quicksetup
-  
+
+    timeout = 15
     try:
         element_present = EC.presence_of_element_located((By.XPATH, "//button[@type='submit']"))
         WebDriverWait(driver, timeout).until(element_present)
