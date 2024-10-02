@@ -44,9 +44,9 @@ def quicksetup():
     yield driver
     driver.quit() 
 
-def test_Genesis(quickstart):  
+def test_Genesis(quicksetup):  
 
-    driver = quickstart
+    driver = quicksetup
   
     try:
         element_present = EC.presence_of_element_located((By.XPATH, "//button[@type='submit']"))
