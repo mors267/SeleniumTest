@@ -202,15 +202,9 @@ def test_BroadbandLabelNED(quicksetup):
     print ("Session ID: "+driver.find_element(by=By.XPATH, value='/html/body/table/tbody/tr[8]/td[2]').text)
 
 
-def test_BroadbandLabelCEN():  
+def test_BroadbandLabelCEN(quicksetup):  
 
-    options = Options()
-    options.add_argument("--disable-notifications")
-    driver = webdriver.Chrome()
-    driver.maximize_window()
-
-    driver.get('https://business.comcast.com/shop/gateway?disablescripts=true')
-    timeout = 15
+    driver = quicksetup
     try:
         element_present = EC.presence_of_element_located((By.XPATH, "//button[@type='submit']"))
         WebDriverWait(driver, timeout).until(element_present)
@@ -363,14 +357,9 @@ def test_BroadbandLabelCEN():
     print('\n'"Localized to: "+driver.find_element(by=By.XPATH, value='/html/body/table/tbody/tr[3]/td[2]').text) 
     print ("Session ID: "+driver.find_element(by=By.XPATH, value='/html/body/table/tbody/tr[8]/td[2]').text)
 
-def test_BroadbandLabelWEST():  
+def test_BroadbandLabelWEST(quicksetup):  
 
-    options = Options()
-    options.add_argument("--disable-notifications")
-    driver = webdriver.Chrome()
-    driver.maximize_window()
-
-    driver.get('https://business.comcast.com/shop/gateway?disablescripts=true')
+    driver = quicksetup
     timeout = 15
     try:
         element_present = EC.presence_of_element_located((By.XPATH, "//button[@type='submit']"))
