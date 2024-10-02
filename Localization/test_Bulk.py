@@ -46,8 +46,10 @@ def quicksetup():
     driver.get('https://business.comcast.com/healthcheck/')
     print('\nLocalized to: ' + driver.find_element(by=By.XPATH, value='/html/body/table/tbody/tr[3]/td[2]').text)
     print("Session ID: " + driver.find_element(by=By.XPATH, value='/html/body/table/tbody/tr[8]/td[2]').text)
-    driver.back()
-    driver.refresh()
+
+     # Navigate back to the initial page explicitly
+    driver.get('https://business.comcast.com/shop/gateway?disablescripts=true')
+    WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit']"))) 
     
     yield driver
     driver.quit() 
