@@ -41,11 +41,14 @@ def quicksetup():
     driver.get('https://business.comcast.com/shop/gateway?disablescripts=true')
     driver.maximize_window()
     driver.refresh()
+    
     #health check verification
     driver.get('https://business.comcast.com/healthcheck/')
-    print('\n'"Localized to: "+driver.find_element(by=By.XPATH, value='/html/body/table/tbody/tr[3]/td[2]').text) 
-    print ("Session ID: "+driver.find_element(by=By.XPATH, value='/html/body/table/tbody/tr[8]/td[2]').text)
+    print('\nLocalized to: ' + driver.find_element(by=By.XPATH, value='/html/body/table/tbody/tr[3]/td[2]').text)
+    print("Session ID: " + driver.find_element(by=By.XPATH, value='/html/body/table/tbody/tr[8]/td[2]').text)
     driver.back()
+    driver.refresh()
+    
     yield driver
     driver.quit() 
 
