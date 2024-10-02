@@ -43,7 +43,7 @@ def quicksetup():
     yield driver
     driver.quit() 
 
-def test_SIK():  
+def test_SIK(quicksetup):  
     
     driver = quicksetup
   
